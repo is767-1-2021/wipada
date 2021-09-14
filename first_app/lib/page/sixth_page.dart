@@ -31,8 +31,10 @@ class _MyCustomFormState extends State<MyCustomForm> {
         children: [
           TextFormField(
             decoration: InputDecoration(
-                border: UnderlineInputBorder(), labelText: 'Enter firstname',
-                icon: Icon(Icons.business),),
+              border: UnderlineInputBorder(),
+              labelText: 'Enter firstname',
+              icon: Icon(Icons.business),
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter firstname';
@@ -40,11 +42,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
               return null;
             },
-             onSaved: (value){_firstName = value;},
+            onSaved: (value) {
+              _firstName = value;
+            },
           ),
           TextFormField(
             decoration: InputDecoration(
-                border: UnderlineInputBorder(), labelText: 'Enter lastname',
+                border: UnderlineInputBorder(),
+                labelText: 'Enter lastname',
                 icon: Icon(Icons.family_restroom)),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -53,11 +58,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
               return null;
             },
-            onSaved: (value){_lastName = value;},
+            onSaved: (value) {
+              _lastName = value;
+            },
           ),
           TextFormField(
             decoration: InputDecoration(
-                border: UnderlineInputBorder(), labelText: 'Enter age',
+                border: UnderlineInputBorder(),
+                labelText: 'Enter age',
                 icon: Icon(Icons.ring_volume)),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -67,22 +75,21 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 return 'Please enter age';
               }
             },
-             onSaved: (value){_age = int.parse(value!);
-             },
+            onSaved: (value) {
+              _age = int.parse(value!);
+            },
           ),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-               _formKey.currentState!.save();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Yeah = $_firstName $_lastName $_age'),
-                ));
+                _formKey.currentState!.save();
 
-                
+                var response = 'Yeah = $_firstName $_lastName $_age';
+
+                Navigator.pop(context, response);
               }
             },
             child: Text('Validate'),
-
           ),
         ],
       ),
