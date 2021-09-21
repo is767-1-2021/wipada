@@ -1,4 +1,6 @@
+import 'package:first_app/models/first_form_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SixthPage extends StatelessWidget {
   @override
@@ -45,6 +47,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             onSaved: (value) {
               _firstName = value;
             },
+            initialValue: context.read<FirstFormModel>().firstName,
           ),
           TextFormField(
             decoration: InputDecoration(
@@ -61,6 +64,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             onSaved: (value) {
               _lastName = value;
             },
+            initialValue: context.read<FirstFormModel>().lastName,
           ),
           TextFormField(
             decoration: InputDecoration(
@@ -71,22 +75,26 @@ class _MyCustomFormState extends State<MyCustomForm> {
               if (value == null || value.isEmpty) {
                 return 'Please enter age';
               }
-              if (int.parse(value) <= 18) {
+              if (int.parse(value) < 18) {
                 return 'Please enter age';
               }
+              return null;
             },
             onSaved: (value) {
               _age = int.parse(value!);
             },
+            initialValue: context.read<FirstFormModel>().age.toString(),
           ),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
 
-                var response = 'Yeah = $_firstName $_lastName $_age';
+                context.read<FirstFormModel>().firstName = _firstName;
+                context.read<FirstFormModel>().lastName = _lastName;
+                context.read<FirstFormModel>().age = _age;
 
-                Navigator.pop(context, response);
+                Navigator.pop(context);
               }
             },
             child: Text('Validate'),
