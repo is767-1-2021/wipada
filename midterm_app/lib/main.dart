@@ -46,9 +46,15 @@ class SSHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [Icon(Icons.brightness_4_sharp,size: 30),
-            Text('HAMTAROT',style: TextStyle(fontSize: 25),),Icon(Icons.brightness_4_sharp,size: 30)
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(Icons.brightness_4_sharp, size: 30),
+            Text(
+              'HAMTAROT',
+              style: TextStyle(fontSize: 25),
+            ),
+            Icon(Icons.brightness_4_sharp, size: 30)
           ],
         ),
       ),

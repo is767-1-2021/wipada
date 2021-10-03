@@ -22,7 +22,11 @@ class _ThingPageState extends State<ThingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('รวมรายชื่อวัดดังเสริมดวง'), actions: [
-        IconButton(onPressed: () {Navigator.pushNamed(context, '/1');}, icon: Icon(Icons.home)),
+        IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/1');
+            },
+            icon: Icon(Icons.home)),
       ]),
       body: ListView.builder(
           itemCount: menu.length,
@@ -61,9 +65,12 @@ class ThingDetail extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          Container(padding: EdgeInsets.only(top: 20),
-            child: Text(thing.name,style: TextStyle(
-                            fontSize: 24),)),
+          Container(
+              padding: EdgeInsets.only(top: 20),
+              child: Text(
+                thing.name,
+                style: TextStyle(fontSize: 24),
+              )),
           Center(
             child: Image.asset(
               thing.image,
@@ -72,10 +79,17 @@ class ThingDetail extends StatelessWidget {
             ),
           ),
           Text('รายละเอียดวัด : xxxxxxxxxxxxxxxxxx'),
-          Container(padding: EdgeInsets.only(top: 20),
-              child: ElevatedButton( 
-                  onPressed: () {}, style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.amber)),
-                  child: Text('ขอทราบเส้นทาง',style: TextStyle(color: Colors.black),)))
+          Container(
+              padding: EdgeInsets.only(top: 20),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.amber)),
+                  child: Text(
+                    'ขอทราบเส้นทาง',
+                    style: TextStyle(color: Colors.black),
+                  )))
         ],
       ),
     );
