@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class FirstFormModel extends ChangeNotifier {
-  String? _firstName;
+  String? _firstName='AAAA';
   String? _lastName;
   int? _age;
 
