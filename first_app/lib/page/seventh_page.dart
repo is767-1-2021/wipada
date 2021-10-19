@@ -42,7 +42,7 @@ class MovedCat extends StatelessWidget {
         child: Center(
           child: Hero(tag: 'Cat',
            child: Image.asset(
-                  'assets/popcat.png',
+                  'assets/popcat1.png',
                   width: 120,
            ),
         ),

@@ -1,10 +1,11 @@
+// import 'dart:html';
 
-
-
+import 'package:first_app/controllers/todo.dart';
 import 'package:first_app/models/first_form_model.dart';
+import 'package:first_app/page/todo_page.dart';
+import 'package:first_app/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 import 'page/eighth_page.dart';
 import 'page/first_page.dart';
@@ -16,16 +17,33 @@ import 'page/sixth_page.dart';
 import 'page/seventh_page.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers:[ 
-        ChangeNotifierProvider(
-      create: (context)=> FirstFormModel(),
-    ),
-    ],
-  child: MyApp(),
-  ),
-  );
+  var services = HttpServices();
+  var controller = TodoController(services);
+
+  runApp(TodoApp(controller: controller));
+}
+
+//   runApp(
+//     MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider(
+//           create: (context) => FirstFormModel(),
+//         ),
+//       ],
+//       child: MyApp(),
+//     ),
+//   );
+// }
+
+class TodoApp extends StatelessWidget {
+  final TodoController controller;
+  TodoApp({required this.controller});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: TodoPage(controller: controller,
+    ));
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -144,12 +162,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
