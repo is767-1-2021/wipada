@@ -20,4 +20,4 @@ class SSController {
     onSyncController.add(false); // stop connected
     return ss;
   }
-}
+  }

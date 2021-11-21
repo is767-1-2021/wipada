@@ -6,6 +6,7 @@ class SS {
   final String img;
 
 
+
   SS(this.id, this.content, this.img);
 
   factory SS.fromJson(
@@ -15,6 +16,7 @@ class SS {
       json['id'] as int,
       json['content'] as String,
       json['img'] as String,
+    
    
     );
   }

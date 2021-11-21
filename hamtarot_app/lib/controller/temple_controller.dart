@@ -9,7 +9,9 @@ class TempleController {
   final Services service;
   List<Temple> temple = List.empty();
 
-  StreamController<bool> onSyncController = StreamController();// checking status stream onsync (on process / finish)
+  StreamController<bool> onSyncController = StreamController();
+
+  var newtemple;// checking status stream onsync (on process / finish)
   Stream<bool> get onSync => onSyncController.stream; 
 
   TempleController(this.service);

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hamtarot_app/HomePage.dart';
@@ -23,6 +22,7 @@ class _ThingViewState extends State<ThingView> {
   Services? service;
   TempleController? controller;
   List<Temple> temple = List.empty();
+  bool isLoading = false;
 
   // List<Thingmenu> menu = [
   //   Thingmenu('วัดแขก', 'เสริมดวงความรัก', 'assets/temp1.jpg'),
@@ -33,6 +33,8 @@ class _ThingViewState extends State<ThingView> {
     super.initState();
     service = TempleServices();
     controller = TempleController(service!);
+    controller!.onSync
+        .listen((bool synState) => setState(() => isLoading = synState));
     gettemple();
   }
 
@@ -46,101 +48,110 @@ class _ThingViewState extends State<ThingView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: Text('รวมวัดดังเสริมดวง'),
-          automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MyHomePage(),
+    return isLoading
+        ? Center(child: CircularProgressIndicator())
+        : Scaffold(
+            appBar: AppBar(
+                title: Text('รวมวัดดังเสริมดวง'),
+                automaticallyImplyLeading: false,
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyHomePage(),
+                          ),
+                        );
+                      },
+                      icon: Icon(Icons.home)),
+                ]),
+            body: ListView.builder(
+                itemCount: temple.length,
+                itemBuilder: (BuildContext context, index) {
+                  Temple newtemple = temple[index];
+                  return ListTile(
+                    title: Text(newtemple.title),
+                    subtitle: Text(newtemple.content),
+                    leading: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minWidth: 44,
+                        minHeight: 44,
+                        maxWidth: 55,
+                        maxHeight: 55,
+                      ),
+                      child: Image.network(newtemple.image, fit: BoxFit.cover),
                     ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ThingDetail(newtemple: newtemple)));
+                    },
                   );
-                },
-                icon: Icon(Icons.home)),
-          ]),
-      body: ListView.builder(
-          itemCount: temple.length,
-          itemBuilder: (BuildContext context, index) {
-            Temple newtemple = temple[index];
-            return ListTile(
-              title: Text(newtemple.title),
-              subtitle: Text(newtemple.content),
-              leading: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minWidth: 44,
-                  minHeight: 44,
-                  maxWidth: 55,
-                  maxHeight: 55,
-                ),
-                child: Image.network(newtemple.image, fit: BoxFit.cover),
+                }),
+            bottomNavigationBar: SingleChildScrollView(
+              child: CurvedNavigationBar(
+                color: Color(0xFF6d4c41),
+                backgroundColor: Color(0xFFFFF8E1),
+                buttonBackgroundColor: Color(0xFF6d4c41),
+                height: 50,
+                items: <Widget>[
+                  IconButton(
+                      onPressed: () {
+                        gettemple();
+                        // Navigator.pushNamed(context, '/3');
+                      },
+                      icon: Icon(Icons.crop_portrait,
+                          size: 30, color: Colors.black)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/4');
+                      },
+                      icon: Icon(Icons.amp_stories_rounded,
+                          size: 30, color: Colors.black)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/5');
+                      },
+                      icon: Icon(Icons.quiz, size: 30, color: Colors.black)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/6');
+                      },
+                      icon: Icon(Icons.battery_unknown,
+                          size: 30, color: Colors.black)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/2');
+                      },
+                      icon: Icon(Icons.date_range_rounded,
+                          size: 30, color: Colors.black)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/9');
+                      },
+                      icon: Icon(Icons.account_balance_rounded,
+                          size: 30, color: Colors.black)),
+                ],
+                //  animationDuration: Duration(milliseconds: 200),
+                index: 5,
               ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ThingDetail(newtemple: newtemple)));
-              },
-            );
-          }),
-      bottomNavigationBar: SingleChildScrollView(
-        child: CurvedNavigationBar(
-          color: Color(0xFF6d4c41),
-          backgroundColor: Color(0xFFFFF8E1),
-          buttonBackgroundColor: Color(0xFF6d4c41),
-          height: 50,
-          items: <Widget>[
-            IconButton(
-                onPressed: () {
-                  gettemple();
-                  // Navigator.pushNamed(context, '/3');
-                },
-                icon: Icon(Icons.crop_portrait, size: 30, color: Colors.black)),
-            IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/4');
-                },
-                icon: Icon(Icons.amp_stories_rounded,
-                    size: 30, color: Colors.black)),
-            IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/5');
-                },
-                icon: Icon(Icons.quiz, size: 30, color: Colors.black)),
-            IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/6');
-                },
-                icon:
-                    Icon(Icons.battery_unknown, size: 30, color: Colors.black)),
-            IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/2');
-                },
-                icon: Icon(Icons.date_range_rounded,
-                    size: 30, color: Colors.black)),
-            IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/9');
-                },
-                icon: Icon(Icons.account_balance_rounded,
-                    size: 30, color: Colors.black)),
-          ],
-          //  animationDuration: Duration(milliseconds: 200),
-          index: 5,
-        ),
-      ),
-    );
+            ),
+          );
   }
 }
 
-class ThingDetail extends StatelessWidget {
+class ThingDetail extends StatefulWidget {
   final Temple newtemple;
   const ThingDetail({Key? key, required this.newtemple}) : super(key: key);
+
+  @override
+  _ThingDetailState createState() => _ThingDetailState();
+}
+
+class _ThingDetailState extends State<ThingDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,20 +165,20 @@ class ThingDetail extends StatelessWidget {
             Container(
                 padding: EdgeInsets.only(top: 20),
                 child: Text(
-                  newtemple.title,
+                  widget.newtemple.title,
                   style: TextStyle(fontSize: 24),
                 )),
             Container(
               padding: EdgeInsets.only(top: 10),
               child: Image.network(
-                newtemple.image,
+                widget.newtemple.image,
                 width: 300,
                 height: 200,
               ),
             ),
             Container(
                 padding: EdgeInsets.only(top: 30, left: 20, right: 20),
-                child: Text(newtemple.detail)),
+                child: Text(widget.newtemple.detail)),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -179,23 +190,7 @@ class ThingDetail extends StatelessWidget {
                         Container(
                             padding: EdgeInsets.only(left: 10),
                             child: Text(
-                                'เวลาเปิด-ปิดให้เข้าชม :  ${newtemple.time}')),
-                      ],
-                    )),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    padding: EdgeInsets.only(top: 10, left: 20, right: 20),
-                    child: Row(
-                      children: [
-                        Icon(Icons.location_pin),
-                        Container(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Text(
-                                'พิกัดเส้นทาง :  ${newtemple.time}')),
+                                'เวลาเปิด-ปิดให้เข้าชม :  ${widget.newtemple.time}')),
                       ],
                     )),
               ],
@@ -204,15 +199,16 @@ class ThingDetail extends StatelessWidget {
             //   crossAxisAlignment: CrossAxisAlignment.start,
             //   children: [
             //     Container(
-            //         padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+            //         padding: EdgeInsets.only(top: 10, left: 20, right: 20),
             //         child: Row(
             //           children: [
             //             Icon(Icons.location_pin),
+            //             Container(
+            //                 padding: EdgeInsets.only(left: 10),
+            //                 child: Text(
+            //                     'พิกัดเส้นทาง :  ${widget.newtemple.location}')),
             //           ],
             //         )),
-            //     Container(
-            //         padding: EdgeInsets.only(left: 10),
-            //         child: Text('พิกัดเส้นทาง :  ${newtemple.time}')),
             //   ],
             // ),
             // Container(
@@ -229,6 +225,7 @@ class ThingDetail extends StatelessWidget {
           ],
         ),
       ),
+      
       bottomNavigationBar: SingleChildScrollView(
         child: CurvedNavigationBar(
           color: Color(0xFF6d4c41),
@@ -277,10 +274,4 @@ class ThingDetail extends StatelessWidget {
       ),
     );
   }
-}
-
-@override
-Widget build(BuildContext context) {
-  // TODO: implement build
-  throw UnimplementedError();
 }
