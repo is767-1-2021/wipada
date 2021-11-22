@@ -105,7 +105,6 @@ class _MyAppCard3State extends State<MyAppCard3> {
                 icon: Icon(Icons.account_balance_rounded,
                     size: 30, color: Colors.black)),
           ],
-          //animationDuration: Duration(milliseconds: 200),
           index: 1,
         ),
       ),
@@ -119,17 +118,6 @@ class _MyAppCard3State extends State<MyAppCard3> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: <Widget>[
-          /* IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyHomePage(),
-                  ),
-                );
-              },
-              icon: Icon(Icons.home)),*/
-
           selectedList.length < 3
               ? Container()
               : InkWell(

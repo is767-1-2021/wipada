@@ -10,8 +10,6 @@ class Showdata extends StatefulWidget {
 }
 
 class _ShowdataState extends State<Showdata> {
-  //final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,47 +71,29 @@ class _ShowdataState extends State<Showdata> {
                 icon: Icon(Icons.account_balance_rounded,
                     size: 30, color: Colors.black)),
           ],
-          // animationDuration: Duration(milliseconds: 200),
           index: 4,
         ),
       ),
-
       body: SingleChildScrollView(
-        //Center(
-        child: //Center(
-            Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
+            Container(),
             Container(
-                // color: Colors.orange,
-                //child: Image.asset('assets/q1.jpg'),
-                //width: 200,
-                ),
-            Container(
-              //color: Colors.orange,
               child: Text(
                 'เรารอพบคุณอยู่',
                 style: TextStyle(fontSize: 40, color: Colors.black54),
               ),
-              //  margin: EdgeInsets.all(4.0),
-              //  padding: EdgeInsets.all(4.0),
             ),
             Container(
-              // color: Colors.red,
-              /*margin: EdgeInsets.only(
-                  left: 50.0,
-                  right: 50.0,
-                  bottom: 4.0), */
               margin: EdgeInsets.all(1.0), //ปรับระยะห่างของรูปกับรอบข้าง
               padding: EdgeInsets.all(1.0),
               decoration: BoxDecoration(
-                //color: Colors.white.withOpacity(0.35),
-                //color: Colors.red, //ปรับสีเส้นขอบ
                 borderRadius: BorderRadius.circular(10.0),
               ),
 
-              child: Image.asset('assets/Hamtarot.png'),
+              // child: Image.asset('assets/Hamtarot.png'),
             ),
             Consumer<DataFormModel>(
               builder: (context, form, child) {
@@ -137,39 +117,17 @@ class _ShowdataState extends State<Showdata> {
             ),
             Row(
               children: <Widget>[
-                /*Expanded(
-                  flex: 2,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.blue, // background
-                      onPrimary: Colors.white, // foreground
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/2');
-                    },
-                    child: const Text('ย้อนกลับ'),
-                  ),
-                ),*/
                 Expanded(
-                    // flex: 2,
                     child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed('/2');
-                          // _formKey.currentState!.reset();
                         },
-                        child: Text('จองคิวเพิ่ม')
-                        // style: TextStyle(fontWeight: FontWeight.w600),
-                        )
-
-                    //Text('จองคิวเพิ่ม'),
-                    // ),
-                    ),
+                        child: Text('จองคิวเพิ่ม'))),
               ],
             ),
           ],
         ),
       ),
-      // ),
     );
   }
 }

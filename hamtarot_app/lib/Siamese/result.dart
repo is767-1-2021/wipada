@@ -93,7 +93,7 @@ class _ResultRandomState extends State<ResultRandom> {
                                     heart = !heart;
                                   });
                                 }),
-                           
+                            
                           ],
                         ),
                       ],

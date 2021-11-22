@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-class Namemodel extends ChangeNotifier {
+class Loginmodel extends ChangeNotifier {
   String? _name;
   String? number;
   String? _email;
- 
 
   get Name => this._name;
 
@@ -19,12 +18,10 @@ class Namemodel extends ChangeNotifier {
     this.number = value;
     notifyListeners();
   }
+
   get email => this._email;
-  set email(value){
+  set email(value) {
     this._email = value;
-     notifyListeners();
+    notifyListeners();
   }
-
-
-
 }

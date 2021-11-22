@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:hamtarot_app/HomePage.dart';
 import 'package:hamtarot_app/Login/model.dart';
+import 'package:hamtarot_app/Services/ss_service.dart';
 import 'package:hamtarot_app/Siamese/result.dart';
 import 'package:hamtarot_app/controller/ss_controller.dart';
 import 'package:hamtarot_app/model/ss_model.dart';
-import 'package:hamtarot_app/service/ss_service.dart';
+
 
 import 'dart:math' as match;
 
@@ -102,15 +103,6 @@ class _ShakePageState extends State<ShakePage>
           padding: EdgeInsets.only(top: 20),
           child: Column(
             children: [
-              Consumer<Namemodel>(builder: (context, form, child) {
-                return Container(
-                  child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(form.email),
-                    ],
-                  ),
-                );
-              }),
               Container(
                 width: 300,
                 padding: EdgeInsets.only(left: 20),
@@ -187,14 +179,14 @@ class _ShakePageState extends State<ShakePage>
                         content: Text('คุณได้ใบเซียมซีเลขที่${newss.id}'),
                         contentPadding: EdgeInsets.all(30),
                         actions: <Widget>[
-                          Consumer<Namemodel>(builder: (context, form, child) {
+                          Consumer<Loginmodel>(builder: (context, form, child) {
                             return ElevatedButton(
                                 onPressed: () async {
                                   FirebaseFirestore.instance
-                                      .collection('ham_test')
+                                      .collection('ham_history')
                                       .add({
                                     'email': form.email,
-                                    'resultnumber': newss.id,
+                                    'result': newss.result,
                                     'timeStamp': Timestamp.now()
                                   });
                                   await Navigator.push(
@@ -265,3 +257,4 @@ class _ShakePageState extends State<ShakePage>
     );
   }
 }
+

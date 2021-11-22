@@ -9,13 +9,13 @@ class FlipAnimationDemo extends StatefulWidget {
 }
 
 class _FlipAnimationDemoState extends State<FlipAnimationDemo> {
-  late double _height;
-  late double _width;
+  //late double _height;
+  //late double _width;
 
   @override
   Widget build(BuildContext context) {
-    _height = MediaQuery.of(context).size.height;
-    _width = MediaQuery.of(context).size.width;
+    // _height = MediaQuery.of(context).size.height;
+    //_width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
           title: Text('ผลคำทำนาย'),
@@ -68,9 +68,6 @@ class _FlipAnimationDemoState extends State<FlipAnimationDemo> {
                                 image: AssetImage('assets/card_back.png'),
                                 width: 100.0,
                                 height: 150.0,
-                                //decoration: BoxDecoration(
-                                //borderRadius: BorderRadius.all(Radius.circular(10)),
-                                //color: Colors.blue.shade400,
                               ),
                             ),
                           ],
@@ -126,9 +123,6 @@ class _FlipAnimationDemoState extends State<FlipAnimationDemo> {
                                 image: AssetImage('assets/card_back.png'),
                                 width: 100.0,
                                 height: 150.0,
-                                //decoration: BoxDecoration(
-                                //borderRadius: BorderRadius.all(Radius.circular(10)),
-                                //color: Colors.blue.shade400,
                               ),
                             ),
                           ],
@@ -183,9 +177,6 @@ class _FlipAnimationDemoState extends State<FlipAnimationDemo> {
                                 image: AssetImage('assets/card_back.png'),
                                 width: 100.0,
                                 height: 150.0,
-                                //decoration: BoxDecoration(
-                                //borderRadius: BorderRadius.all(Radius.circular(10)),
-                                //color: Colors.blue.shade400,
                               ),
                             ),
                           ],
@@ -279,7 +270,6 @@ class _FlipAnimationDemoState extends State<FlipAnimationDemo> {
                 icon: Icon(Icons.account_balance_rounded,
                     size: 30, color: Colors.black)),
           ],
-          // animationDuration: Duration(milliseconds: 200),
           index: 1,
         ),
       ),

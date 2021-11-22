@@ -7,11 +7,8 @@ class Temple {
   final String image;
   final String detail;
   final String time;
-  
- 
- 
 
-  Temple(this.id, this.title, this.content,this.image,this.detail,this.time);
+  Temple(this.id, this.title, this.content, this.image, this.detail, this.time);
 
   factory Temple.fromJson(
     Map<String, dynamic> json,
@@ -26,8 +23,6 @@ class Temple {
     );
   }
 }
-
-
 
 class AllTemple {
   final List<Temple> temple;

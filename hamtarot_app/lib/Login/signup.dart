@@ -30,90 +30,112 @@ class _SignupState extends State<Signup> {
       key: _formKey,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Firebase Authentication"),
+          title: Text("Sing up"),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Register Page",
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20.0),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                  controller: emailController,
-                  textAlign: TextAlign.center,
-                  onChanged: (value) {
-                    email = value;
-                  }, // get value from TextField
-                  decoration: InputDecoration(
-                      hintText: "Enter your Email",
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(32.0))),
-                      errorText: _validateemail ? 'email ' : null)),
-              SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                controller: passwordController,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  password = value; //get value from textField
-                },
-                decoration: InputDecoration(
-                    hintText: "Enter your Password",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                    errorText: _validatepassword ? 'password' : null),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Material(
-                elevation: 5,
-                color: Colors.lightBlue,
-                borderRadius: BorderRadius.circular(32.0),
-                child: Row(
-                  children: [
-                    MaterialButton(
-                      onPressed: () async {
-                        setState(() {
-                          passwordController.text.isEmpty
-                              ? _validatepassword = true
-                              : _validatepassword = false;
-                          emailController.text.isEmpty
-                              ? _validateemail = true
-                              : _validateemail = false;
-                        });
-                        if ((_formKey.currentState!.validate())) {
-                          _formKey.currentState!.save();
-                          context.read<Namemodel>().email = email;
-
-                          try {
-                            final newUser = await _auth
-                              ..createUserWithEmailAndPassword(
-                                  email: email!, password: password!);
-                            print(newUser.toString());
-                            await Navigator.pushNamed(context, '/1');
-                          } catch (e) {}
-                        }
-                      },
-                      minWidth: 200.0,
-                      height: 45.0,
-                      child: Text(
-                        "Singup",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 20.0),
-                      ),
-                    ),
-                  ],
+        body: SingleChildScrollView(
+          padding: EdgeInsets.only(top: 15.0),
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                Image.asset(
+                  'assets/icon.png',
+                  width: 280,
+                  height: 320,
                 ),
-              )
-            ],
+                Text(
+                  "Sing up to Hamtarot",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18.0,
+                      color: Colors.brown[600]),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Container(
+                  width: 330,
+                  child: TextField(
+                      controller: emailController,
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        email = value;
+                      }, // get value from TextField
+                      decoration: InputDecoration(
+                          hintText: "Enter your Email",
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(32.0))),
+                          errorText: _validateemail
+                              ? 'Please enter your email.'
+                              : null)),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Container(
+                  width: 330,
+                  child: TextField(
+                    controller: passwordController,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      password = value; //get value from textField
+                    },
+                    decoration: InputDecoration(
+                        hintText: "Enter your Password",
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(32.0))),
+                        errorText: _validatepassword
+                            ? 'Please enter your password.'
+                            : null),
+                    obscureText: true,
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Material(
+                  elevation: 5,
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(32.0),
+                  child: Column(
+                    children: [
+                      MaterialButton(
+                        onPressed: () async {
+                          setState(() {
+                            passwordController.text.isEmpty
+                                ? _validatepassword = true
+                                : _validatepassword = false;
+                            emailController.text.isEmpty
+                                ? _validateemail = true
+                                : _validateemail = false;
+                          });
+                          if ((_formKey.currentState!.validate())) {
+                            _formKey.currentState!.save();
+                            context.read<Loginmodel>().email = email;
+
+                            try {
+                              final newUser = await _auth
+                                ..createUserWithEmailAndPassword(
+                                    email: email!, password: password!);
+                              print(newUser.toString());
+                              await Navigator.pushNamed(context, '/1');
+                            } catch (e) {}
+                          }
+                        },
+                        minWidth: 200.0,
+                        height: 45.0,
+                        child: Text(
+                          "Sing up",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 18.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

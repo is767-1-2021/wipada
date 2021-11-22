@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hamtarot_app/Form/email_validator.dart';
+
 import 'package:hamtarot_app/Login/model.dart';
 import 'package:provider/provider.dart';
 
@@ -30,53 +30,93 @@ class _LoginState extends State<Login> {
     return Form(
       key: _formKey,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text("Firebase Authentication"),
-        ),
-        body: Center(
+        backgroundColor: Colors.brown[600],
+        // appBar: AppBar(
+        //   title: Text("Firebase Authentication"),
+        // ),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.only(top: 80.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Image.asset(
+                'assets/icon.png',
+                width: 280,
+                height: 320,
+              ),
               Text(
-                "Login Page",
-                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20.0),
+                "Sign in to allow your horoscope !",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18.0,
+                    color: Colors.amber),
               ),
               SizedBox(
                 height: 20.0,
               ),
-              TextField(
-                  controller: userNameController,
+              Container(
+                width: 330,
+                child: TextField(
+                    controller: userNameController,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      email = value;
+                    }, // get value from TextField
+                    decoration: InputDecoration(
+                        hintText: "Enter your Email",
+                        filled: true,
+                        fillColor: const Color(0xFFFFF8E1),
+                        errorStyle:
+                            TextStyle(fontSize: 12.0, color: Colors.amber),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                        ),
+                        errorText: _validateemail
+                            ? 'Please enter your email.'
+                            : null)),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                width: 330,
+                child: TextField(
+                  controller: passwordController,
                   textAlign: TextAlign.center,
                   onChanged: (value) {
-                    email = value;
-                  }, // get value from TextField
+                    password = value; //get value from textField
+                  },
                   decoration: InputDecoration(
-                      hintText: "Enter your Email",
+                      hintText: "Enter your Password",
+                      filled: true,
+                      fillColor: const Color(0xFFFFF8E1),
+                      errorStyle:
+                          TextStyle(fontSize: 12.0, color: Colors.amber),
                       border: OutlineInputBorder(
                           borderRadius:
                               BorderRadius.all(Radius.circular(32.0))),
-                      errorText: _validateemail ? 'email ' : null)),
-              SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                controller: passwordController,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  password = value; //get value from textField
-                },
-                decoration: InputDecoration(
-                    hintText: "Enter your Password",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                    errorText: _validatepassword ? 'password' : null),
+                      errorText: _validatepassword
+                          ? 'Please enter your password.'
+                          : null),
+                  obscureText: true,
+                ),
               ),
               SizedBox(
                 height: 20.0,
               ),
               Row(
-                  children: [
-                   ElevatedButton(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: 120,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.amber,
+                        elevation: 5,
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(32.0),
+                        ),
+                      ),
                       onPressed: () async {
                         setState(() {
                           passwordController.text.isEmpty
@@ -88,11 +128,11 @@ class _LoginState extends State<Login> {
                         });
                         if ((_formKey.currentState!.validate())) {
                           _formKey.currentState!.save();
-                          context.read<Namemodel>().email = email;
+                          context.read<Loginmodel>().email = email;
                           try {
-                            final newUser = await _auth
-                              .signInWithEmailAndPassword(
-                                  email: email!, password: password!);
+                            final newUser =
+                                await _auth.signInWithEmailAndPassword(
+                                    email: email!, password: password!);
                             print(newUser.toString());
                             await Navigator.pushNamed(context, '/1');
                           } on FirebaseAuthException catch (e) {
@@ -110,29 +150,35 @@ class _LoginState extends State<Login> {
                           }
                         }
                       },
-                    
                       child: Text(
-                        "Login",
+                        "Sign in",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 20.0),
+                            fontWeight: FontWeight.w500, fontSize: 18.0),
                       ),
                     ),
-                    ElevatedButton( 
-                      onPressed: ()  {
-                        Navigator.pushNamed(context, '/13');  
+                  ),
+                  Container(
+                    width: 120,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.amber,
+                        elevation: 5,
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(32.0),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/13');
                       },
-                     
                       child: Text(
-                        "Signup",
+                        "Sign up",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 20.0),
+                            fontWeight: FontWeight.w500, fontSize: 18.0),
                       ),
                     ),
-                   
-                  ],
-                ),
-            
-              
+                  ),
+                ],
+              ),
             ],
           ),
         ),
