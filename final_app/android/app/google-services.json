@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "224096475537",
+    "project_id": "is767-2021-wipada",
+    "storage_bucket": "is767-2021-wipada.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224096475537:android:89010712c80367dfd3e230",
+        "android_client_info": {
+          "package_name": "com.example.final_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224096475537-e1m7qk0vb2pqm9940c56rdgmhvvknnhk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCos_N8GQqqlTsiIkuKlfQuZQpa436cxAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224096475537-e1m7qk0vb2pqm9940c56rdgmhvvknnhk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
